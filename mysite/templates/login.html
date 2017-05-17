@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<center>
   <h2>Please Login</h2>
   {% if form.errors %}
     <p style="color: red">Your username and password didn't match. Please try again.</p>
@@ -8,21 +9,32 @@
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
+
+    <table>
+          <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+          </tr>
+        </table>
     {% for field in form %}
       <p>
-        {{ field.label_tag }}<br>
-        {{ field }}<br>
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
         {% if field.help_text %}
-          <p><small style="color: grey">{{ field.help_text }}</small></p>
+          <p><small style="color: blue">{{ field.help_text }}</small></p>
         {% endif %}
       </p>
     {% endfor %}
-    <button type="submit">Log in</button><br>
+
+    <button type="submit">Log in</button><br><br>
     <p>if you don't have account just click
     <b><a href="{% url 'signup' %}">REGISTER</a></b>
     to create.</p>
   </form>
+  </center>
 {% endblock %}
